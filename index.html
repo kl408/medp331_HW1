@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>MEDP 331 - Homework 1</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Homepage for homework 1" />
+        <meta name="author" content="Kristy" />
+        <!-- CSS file -->
+        <link rel="stylesheet" href="style.css"/>
+        <!-- GL JS files for mapbox base -->
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+        <!-- GL JS file for mapbox directions -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+        <!-- Styling -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+        <!-- Animations: Credit to michalsnik @GitHub -->
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    </head>
+    
+    <body>
+        <div class="intro">
+            <h1 data-aos="fade-down" data-aos-duration="1000">Let's get glowing skin!</h1>
+            <p data-aos="fade-down" data-aos-duration="1200">One of my favorite ways to invest in self care is looking into skincare. There's many local businesses
+                and known chains throughout Manhattan I visit to find some quality products.
+            </p>
+            <p data-aos="fade-down" data-aos-duration="1200">This map is meant to highlight a couple of cosmetic & beauty stores across the city for those interested in 
+                looking for their next ideal product.
+            </p>
+            <p id="thanks" data-aos="fade" data-aos-duration="2400">Thanks for stopping by! - Kristy</p>
+        </div>
+        <!-- Styling of Map -->
+        <style>
+            .mapboxgl-popup {
+                font: 12px/20px 'Rubik', sans-serif;
+            }
+        </style>
+
+        <!-- Map -->
+        <div id='map' style='width: 1000px; height: 500px; margin: auto;'></div>
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1Ijoia2w4NiIsImEiOiJja3RrMHA0d3gxaGNmMnBxZmh6dzBiMzkzIn0.gRqYpNttaKQAt5H1lp3QOQ';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/dark-v10',
+                center: [-74.0019, 40.7246],
+                zoom: 12
+            });
+
+            // Add zoom and rotation controls to the map.
+            map.addControl(new mapboxgl.NavigationControl());
+
+            // Add directions to the map.
+            map.addControl(
+                new MapboxDirections({
+                accessToken: mapboxgl.accessToken
+                }),
+                'top-left'
+            );
+
+            // Coordinate information
+            map.on('load', () => {
+                map.addSource('places', {
+                    // This GeoJSON contains features that include an "icon"
+                    // property. The value of the "icon" property corresponds
+                    // to an image in the Mapbox Streets style's sprite.
+                    'type': 'geojson',
+                    'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                                'description':
+                                '<strong style="color:#721BEF;">oo35mm</strong><p><strong>Hours</strong><br>Sunday-Thursday: 10AM - 5PM<br>Friday-Saturday: 10AM - 6:30PM</p><p><a href="https://oo35mm.com/" target="_blank" title="Opens in a new window">oo35mm</a> is a local beauty shop in Chinatown with the latest Asian beauty products. They have a variety of services on their online store as well!</p>',
+                                'icon': 'shop-15'
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-73.99807, 40.71710]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                                'description':
+                                '<strong style="color:#721BEF;">Besfren Beauty</strong><p><strong>Hours</strong><br>Sunday-Thursday: 11AM - 8PM<br>Friday-Saturday: 11AM - 9PM</p><p><a href="https://www.besfrenbeauty.com/" target="_blank" title="Opens in a new window">Besfren Beauty</a> is one of many beauty stores in K-town with various products. Under the multidivision company, you can get skincare and desserts in the same place.</p>',
+                                'icon': 'shop-15'
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-73.98526, 40.74709]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                                'description':
+                                '<strong style="color:#721BEF;">Credo Clean Beauty</strong><p><strong>Hours</strong><br>All days: 11AM - 7PM</p><p><a href="https://credobeauty.com/" target="_blank" title="Opens in a new window">Credo Beauty</a> focuses on non-toxic, clean skincare products. The brand focuses on inclusivity, transparency, and education in skincare.</p>',
+                                'icon': 'shop-15'
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-73.99350, 40.72569]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                                'description':
+                                '<strong style="color:#721BEF;">The Face Shop</strong><p><strong>Hours</strong><br>All days: 12PM - 6PM</p><p><a href="https://www.thefaceshopny.com/en/" target="_blank" title="Opens in a new window">The Face Shop</a> is one of the K-beauty stores with some of the cutest packaging you can ever find. There is a grand supply of facemasks and collaborations with companies such as LINE.</p>',
+                                'icon': 'shop-15'
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-73.98688, 40.74805]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                                'description':
+                                '<strong style="color:#721BEF;">Nature Republic Union Square</strong><p><strong>Hours</strong><br>All days: 9AM - 10PM</p><p><a href="https://www.talech.com/biz/ordering/336523/Nature-Republic-Union-Square-NEW-YORK-NY#/menu" target="_blank" title="Opens in a new window">Nature Republic</a> is a K-beauty brand known for their aloe vera gel. You can find an extensive line of products targeted towards many skin concerns right at the heart of Union Square.</p>',
+                                'icon': 'shop-15'
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-73.99281, 40.73629]
+                            }
+                        }
+                    ]
+                    }
+                    });
+
+                    // Add a layer showing the places.
+                    map.addLayer({
+                        'id': 'places',
+                        'type': 'circle',
+                        'source': 'places',
+                        'paint': {
+                        'circle-color': '#944FF7',
+                        'circle-radius': 7,
+                        'circle-stroke-width': 2,
+                        'circle-stroke-color': '#ffffff'
+                        }
+                    });
+                    
+                    // Create a popup, but don't add it to the map yet.
+                    const popup = new mapboxgl.Popup({
+                        closeButton: false,
+                        closeOnClick: false
+                    });
+                    
+                    map.on('mouseenter', 'places', (e) => {
+                        // Change the cursor style as a UI indicator.
+                        map.getCanvas().style.cursor = 'pointer';
+                        
+                        // Copy coordinates array.
+                        const coordinates = e.features[0].geometry.coordinates.slice();
+                        const description = e.features[0].properties.description;
+                        
+                        // Ensure that if the map is zoomed out such that multiple
+                        // copies of the feature are visible, the popup appears
+                        // over the copy being pointed to.
+                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                        }
+                        
+                        // Populate the popup and set its coordinates
+                        // based on the feature found.
+                        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+                    });
+                    
+                    map.on('mouseleave', 'places', () => {
+                        map.getCanvas().style.cursor = '';
+                        popup.remove();
+                    });
+                });
+        </script>
+
+        <div class="outro">
+            <p>This website is <strong>static</strong> in regards to its content being relatively the same for the user each
+                time they visit. </p>
+            <p>It is <strong>dynamic</strong> in the sense this content can be adjusted through the mapbox API by
+                calculating and displaying different information such as distance and direction of these locations. </p>
+        </div>
+
+        <!-- Animations: Credit to michalsnik @GitHub -->
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+    </body>
+</html>
